@@ -1,6 +1,12 @@
 public class bitOperation {
 
-    public int add(int a,int b)
+    public static void main(String[] args) {
+        System.out.println(add(10, -5));
+        System.out.println(minus(10, -5));
+        System.out.println(multiple(10, -5));
+        System.out.println(div(-10, 3));
+    }
+    public static int add(int a,int b)
     {
         while (b!=0)
         {
@@ -11,14 +17,31 @@ public class bitOperation {
         }
         return a;
     }
-    public int minus(int a,int b)
+    public static int minus(int a,int b)
     {
         int B=~(b-1);
         return add(a,B);
     }
+    public static  int multiple(int a,int b){
+        if (a>=0&&b>=0)
+        {
+            return multipleHelper(a,b);
+        }
+       else if (a>=0&&b<0)
+        {
+            return -multipleHelper(a,-b);
+        }
+       else if (a<0&&b>=0)
+        {
+            return -multipleHelper(-a,b);
+        }
+        else
+        {
+            return multipleHelper(-a, -b);
+        }
 
-    public int multiple(int a,int b)
-    {
+    }
+    private  static int multipleHelper(int a,int b){
         int i=0;
         int res=0;
         while(b!=0){//乘数为0则结束
@@ -34,17 +57,35 @@ public class bitOperation {
         }
         return res;
     }
-    public  int div(int a,int b)
+    public static int div(int dividend,int divisor)
     {
-        int res=-1;
-        if (a<b){
-            return 0;
+        boolean sign = (dividend > 0) ^ (divisor > 0);
+        int result = 0;
+        if(dividend>0) {
+            dividend = -dividend;
         }
-        else {
-            res=div(minus(a,b),b)+1;
+        if(divisor>0) divisor = -divisor;
+        while(dividend <= divisor) {
+            int temp_result = -1;
+            int temp_divisor = divisor;
+            while(dividend <= (temp_divisor << 1)) {
+                if(temp_divisor <= (Integer.MIN_VALUE >> 1))break;
+                temp_result = temp_result << 1;
+                temp_divisor = temp_divisor << 1;
+            }
+            dividend = dividend - temp_divisor;
+            result += temp_result;
         }
-        return res;
+        if(!sign) {
+            if(result <= Integer.MIN_VALUE) return Integer.MAX_VALUE;
+            result = - result;
+        }
+        return result;
+
     }
+
+
+
 
 
 }
