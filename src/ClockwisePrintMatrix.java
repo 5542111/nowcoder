@@ -23,7 +23,7 @@ public class ClockwisePrintMatrix {
             }
             return list;
 
-            
+
         }
 
         int left = 0;
