@@ -1,5 +1,8 @@
 import com.sun.crypto.provider.PBEWithMD5AndDESCipher;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class sortAlgorithm {
 
     public void swap(int a, int b) {
@@ -119,6 +122,8 @@ public class sortAlgorithm {
         quickSort(arr, low + 1, end);
     }
 
+    private int len = 0;
+
     public void mergeSort(int[] arr, int start, int end) {
         //判断拆分的不为最小单位
         if (end - start > 0) {
@@ -163,50 +168,75 @@ public class sortAlgorithm {
         }
     }
 
-    public void fastSort(int[] arr, int low, int high) {
-        if (high - low < 1) {
+    public void fastSort(int[] arr, int L, int R) {
+        if (L >= R) {
             return;
         }
-        //标记，从高指针开始，还是低指针（默认高指针）
-        boolean flag = true;
-        //记录指针的起始位置
-        int start = low;
-        int end = high;
-        //默认中间值为低指针的第一个值
-        int midValue = arr[low];
-        while (true) {
-            //高指针移动
-            if (flag) {
-                //如果列表右方的数据大于中间值，则向左移动
-                if (arr[high] > midValue) {
-                    high--;
-                } else if (arr[high] < midValue) {
-                    //如果小于，则覆盖最开始的低指针值，并且移动低指针，标志位改成从低指针开始移动
-                    arr[low] = arr[high];
-                    low++;
-                    flag = false;
-                }
-            } else {
-                //如果低指针数据小于中间值，则低指针向右移动
-                if (arr[low] < midValue) {
-                    low++;
-                } else if (arr[low] > midValue) {
-                    //如果低指针的值大于中间值，则覆盖高指针停留时的数据，并向左移动高指针。切换为高指针移动
-                    arr[high] = arr[low];
-                    high--;
-                    flag = true;
-                }
+
+        int left = L;
+        int right = R;
+        int temp = arr[left];
+        while (left < right) {
+            while (left < right && arr[right] >= temp) {
+                right--;
             }
-            //当两个指针的位置相同时，则找到了中间值的位置，并退出循环
-            if (low == high) {
-                arr[low] = midValue;
+            if (left < right) {
+                arr[left] = arr[right];
+            }
+            while (left < right && arr[left] <= temp) {
+                left++;
+            }
+            if (left < right) {
+                arr[right] = arr[left];
+            }
+
+            if (left >= right) {
+                arr[left] = temp;
+            }
+        }
+        fastSort(arr, L, right - 1);
+        fastSort(arr, right + 1, R);
+    }
+
+    public static void heapSort(int []arr){
+        //1.构建大顶堆
+        for(int i=arr.length/2-1;i>=0;i--){
+            //从第一个非叶子结点从下至上，从右至左调整结构
+            adjustHeap(arr,i,arr.length);
+            System.out.println(Arrays.toString(arr));
+        }
+        //2.调整堆结构+交换堆顶元素与末尾元素
+        for(int j=arr.length-1;j>0;j--){
+            swap(arr,0,j);//将堆顶元素与末尾元素进行交换
+            adjustHeap(arr,0,j);//重新对堆进行调整
+            System.out.println(Arrays.toString(arr));
+        }
+
+    }
+
+
+    public static void adjustHeap(int []arr,int i,int length){
+        int temp = arr[i];//先取出当前元素i
+        for(int k=i*2+1;k<length;k=k*2+1){//从i结点的左子结点开始，也就是2i+1处开始
+            if(k+1<length && arr[k]<arr[k+1]){//如果左子结点小于右子结点，k指向右子结点
+                k++;
+            }
+            if(arr[k] >temp){//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+                arr[i] = arr[k];
+                i = k;
+            }else{
                 break;
             }
         }
-        //然后出现有，中间值左边的小于中间值。右边的大于中间值。
-        //然后在对左右两边的列表在进行快速排序
-        quickSort(arr, start, low - 1);
-        quickSort(arr, low + 1, end);
+        arr[i] = temp;//将temp值放到最终的位置
     }
+
+    public static void swap(int []arr,int a ,int b){
+        int temp=arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+
 
 }
