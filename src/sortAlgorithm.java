@@ -194,8 +194,8 @@ public class sortAlgorithm {
                 arr[left] = temp;
             }
         }
-        fastSort(arr, L, right - 1);
-        fastSort(arr, right + 1, R);
+        fastSort(arr, L, left- 1);
+        fastSort(arr, left+ 1, R);
     }
 
     public static void heapSort(int []arr){
