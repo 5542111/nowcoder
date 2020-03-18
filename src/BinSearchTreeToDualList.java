@@ -1,5 +1,6 @@
 import com.sun.org.apache.xpath.internal.objects.XObject;
 import javafx.geometry.Pos;
+import javafx.util.Pair;
 import sun.plugin2.ipc.windows.WindowsIPCFactory;
 import sun.reflect.generics.tree.Tree;
 
@@ -257,12 +258,61 @@ public class BinSearchTreeToDualList {
         root.left = root.right;
         root.right = temp;
         if (root.left != null) {
-                mirrorTree(root.left);
+            mirrorTree(root.left);
         }
-        if (root.right!=null)
-        {
+        if (root.right != null) {
             mirrorTree(root.right);
         }
+    }
+
+
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+
+
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        if (root != null) {
+            queue.offer(new Pair<>(root, 1));
+        }
+        int len = 0;
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> tmp = queue.poll();
+            TreeNode temp = tmp.getKey();
+            len = tmp.getValue();
+            if (temp.left == null && temp.right == null) {
+                break;
+            }
+
+            if (temp.left != null) {
+                queue.offer(new Pair<>(temp.left, len + 1));
+            }
+            if (temp.right != null) {
+                queue.offer(new Pair<>(temp.right, len + 1));
+            }
+
+
+        }
+        return len;
+
+    }
+    public int minDepth2(TreeNode root){
+         if (root == null) {
+           return 0;
+         }
+
+         if ((root.left == null) && (root.right == null)) {
+           return 1;
+         }
+
+         int min_depth = Integer.MAX_VALUE;
+         if (root.left != null) {
+           min_depth = Math.min(minDepth2(root.left), min_depth);
+         }
+         if (root.right != null) {
+           min_depth = Math.min(minDepth2(root.right), min_depth);
+         }
+
+         return min_depth + 1;
     }
 
 
