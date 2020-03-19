@@ -237,6 +237,37 @@ public class sortAlgorithm {
         arr[b] = temp;
     }
 
+    public void fastsort(int[] arr,int low,int high) {
+        if (low>=high)
+        {
+            return;
+        }
+        int start=low;
+        int end=high;
+        int temp=arr[low];
+        while (start<end)
+        {
+            while (start<end&&arr[low]>=temp)
+            {
+                start++;
+            }
+            if (start<end){
+                arr[start]=arr[end];
+            }
+            while (start<end&&arr[end]<=temp)
+            {
+                end--;
+            }
+            if (start<end){
+                arr[end]=arr[low];
+            }
+            if (start==end)
+            {
+                arr[start]=temp;
+            }
 
-
+        }
+        fastSort(arr,low,start-1);
+        fastSort(arr,start+1,end);
+    }
 }
