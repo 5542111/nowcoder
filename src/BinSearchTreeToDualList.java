@@ -29,7 +29,7 @@ public class BinSearchTreeToDualList {
         node2.left = node5;
         node2.right = node6;
         //PreOrder(root);
-        InOrder(root);
+        //nOrder(root);
         //PostOrder(root);
         //InOrder2(root);
 //        Convert(root);
@@ -41,6 +41,7 @@ public class BinSearchTreeToDualList {
         //BroadFirstSearch(root);
         //mirrorTree(root);
         //BroadFirstSearch(root);
+        printInLeftView(root);
 
     }
 
@@ -314,6 +315,36 @@ public class BinSearchTreeToDualList {
 
          return min_depth + 1;
     }
+
+
+    public static void printInLeftView(TreeNode root)
+    {
+        if (root == null) {
+            return;
+        }
+        List<Integer> list=new ArrayList<>();
+        Deque<TreeNode> myQueue = new LinkedList<>();
+        TreeNode temp=root;
+        myQueue.add(temp);
+        while (!myQueue.isEmpty()) {
+            list.add(myQueue.getLast().val);
+            int size=myQueue.size();
+            for (int i=0;i<size;i++)
+            {
+                temp = myQueue.poll();
+                if (temp.left != null) {
+                    myQueue.add(temp.left);
+                }
+                if (temp.right != null) {
+                    myQueue.add(temp.right);
+                }
+            }
+
+        }
+        System.out.println(list);
+    }
+
+
 
 
 }

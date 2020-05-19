@@ -203,13 +203,13 @@ public class sortAlgorithm {
         for(int i=arr.length/2-1;i>=0;i--){
             //从第一个非叶子结点从下至上，从右至左调整结构
             adjustHeap(arr,i,arr.length);
-            System.out.println(Arrays.toString(arr));
+            //System.out.println(Arrays.toString(arr));
         }
         //2.调整堆结构+交换堆顶元素与末尾元素
         for(int j=arr.length-1;j>0;j--){
             swap(arr,0,j);//将堆顶元素与末尾元素进行交换
             adjustHeap(arr,0,j);//重新对堆进行调整
-            System.out.println(Arrays.toString(arr));
+           // System.out.println(Arrays.toString(arr));
         }
 
     }
