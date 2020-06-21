@@ -41,7 +41,7 @@ public class BinSearchTreeToDualList {
         //BroadFirstSearch(root);
         //mirrorTree(root);
         //BroadFirstSearch(root);
-        printInLeftView(root);
+        //printInLeftView(root);
 
     }
 
@@ -296,41 +296,40 @@ public class BinSearchTreeToDualList {
         return len;
 
     }
-    public int minDepth2(TreeNode root){
-         if (root == null) {
-           return 0;
-         }
 
-         if ((root.left == null) && (root.right == null)) {
-           return 1;
-         }
+    public int minDepth2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
 
-         int min_depth = Integer.MAX_VALUE;
-         if (root.left != null) {
-           min_depth = Math.min(minDepth2(root.left), min_depth);
-         }
-         if (root.right != null) {
-           min_depth = Math.min(minDepth2(root.right), min_depth);
-         }
+        if ((root.left == null) && (root.right == null)) {
+            return 1;
+        }
 
-         return min_depth + 1;
+        int min_depth = Integer.MAX_VALUE;
+        if (root.left != null) {
+            min_depth = Math.min(minDepth2(root.left), min_depth);
+        }
+        if (root.right != null) {
+            min_depth = Math.min(minDepth2(root.right), min_depth);
+        }
+
+        return min_depth + 1;
     }
 
 
-    public static void printInLeftView(TreeNode root)
-    {
+    public static void printInLeftView(TreeNode root) {
         if (root == null) {
             return;
         }
-        List<Integer> list=new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         Deque<TreeNode> myQueue = new LinkedList<>();
-        TreeNode temp=root;
+        TreeNode temp = root;
         myQueue.add(temp);
         while (!myQueue.isEmpty()) {
             list.add(myQueue.getLast().val);
-            int size=myQueue.size();
-            for (int i=0;i<size;i++)
-            {
+            int size = myQueue.size();
+            for (int i = 0; i < size; i++) {
                 temp = myQueue.poll();
                 if (temp.left != null) {
                     myQueue.add(temp.left);
@@ -343,8 +342,5 @@ public class BinSearchTreeToDualList {
         }
         System.out.println(list);
     }
-
-
-
 
 }
