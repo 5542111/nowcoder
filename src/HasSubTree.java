@@ -41,4 +41,8 @@ class TreeNode {
 
     }
 
+    public TreeNode() {
+
+    }
+
 }

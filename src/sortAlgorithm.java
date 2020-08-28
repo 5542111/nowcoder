@@ -4,6 +4,16 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class sortAlgorithm {
+    public static void main(String[] args) {
+        int[] arr = new int[]{2, 1, 3, 5, 4};
+        new sortAlgorithm().bubbleSort(arr);
+        //new sortAlgorithm().fastSort(arr,0,arr.length-1);
+        //  new sortAlgorithm().quickSort(arr,0,arr.length-1);
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+    }
+
 
     public void swap(int a, int b) {
         int temp = a;
@@ -15,7 +25,7 @@ public class sortAlgorithm {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
                 if (arr[j] < arr[j + 1]) {
-                    swap(arr[i], arr[j]);
+                    swap(arr, j, j + 1);
                 }
             }
         }
@@ -194,80 +204,75 @@ public class sortAlgorithm {
                 arr[left] = temp;
             }
         }
-        fastSort(arr, L, left- 1);
-        fastSort(arr, left+ 1, R);
+        fastSort(arr, L, left - 1);
+        fastSort(arr, left + 1, R);
     }
 
-    public static void heapSort(int []arr){
+    public static void heapSort(int[] arr) {
         //1.构建大顶堆
-        for(int i=arr.length/2-1;i>=0;i--){
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
             //从第一个非叶子结点从下至上，从右至左调整结构
-            adjustHeap(arr,i,arr.length);
+            adjustHeap(arr, i, arr.length);
             //System.out.println(Arrays.toString(arr));
         }
         //2.调整堆结构+交换堆顶元素与末尾元素
-        for(int j=arr.length-1;j>0;j--){
-            swap(arr,0,j);//将堆顶元素与末尾元素进行交换
-            adjustHeap(arr,0,j);//重新对堆进行调整
-           // System.out.println(Arrays.toString(arr));
+        for (int j = arr.length - 1; j > 0; j--) {
+            swap(arr, 0, j);//将堆顶元素与末尾元素进行交换
+            adjustHeap(arr, 0, j);//重新对堆进行调整
+            // System.out.println(Arrays.toString(arr));
         }
 
     }
 
 
-    public static void adjustHeap(int []arr,int i,int length){
+    public static void adjustHeap(int[] arr, int i, int length) {
         int temp = arr[i];//先取出当前元素i
-        for(int k=i*2+1;k<length;k=k*2+1){//从i结点的左子结点开始，也就是2i+1处开始
-            if(k+1<length && arr[k]<arr[k+1]){//如果左子结点小于右子结点，k指向右子结点
+        for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {//从i结点的左子结点开始，也就是2i+1处开始
+            if (k + 1 < length && arr[k] < arr[k + 1]) {//如果左子结点小于右子结点，k指向右子结点
                 k++;
             }
-            if(arr[k] >temp){//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+            if (arr[k] > temp) {//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
                 arr[i] = arr[k];
                 i = k;
-            }else{
+            } else {
                 break;
             }
         }
         arr[i] = temp;//将temp值放到最终的位置
     }
 
-    public static void swap(int []arr,int a ,int b){
-        int temp=arr[a];
+    public static void swap(int[] arr, int a, int b) {
+        int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
     }
 
-    public void fastsort(int[] arr,int low,int high) {
-        if (low>=high)
-        {
+    public void fastsort(int[] arr, int low, int high) {
+        if (low >= high) {
             return;
         }
-        int start=low;
-        int end=high;
-        int temp=arr[low];
-        while (start<end)
-        {
-            while (start<end&&arr[low]>=temp)
-            {
+        int start = low;
+        int end = high;
+        int temp = arr[low];
+        while (start < end) {
+            while (start < end && arr[low] >= temp) {
                 start++;
             }
-            if (start<end){
-                arr[start]=arr[end];
+            if (start < end) {
+                arr[start] = arr[end];
             }
-            while (start<end&&arr[end]<=temp)
-            {
+            while (start < end && arr[end] <= temp) {
                 end--;
             }
-            if (start<end){
-                arr[end]=arr[low];
+            if (start < end) {
+                arr[end] = arr[low];
             }
-            if (start==end)
-            {
-                arr[start]=temp;
+            if (start == end) {
+                arr[start] = temp;
             }
 
         }
-        fastSort(arr,low,start-1);
-        fastSort(arr,start+1,end);
+        fastsort(arr, low, start - 1);
+        fastsort(arr, start + 1, end);
     }
 }
