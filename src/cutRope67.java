@@ -1,6 +1,3 @@
-import com.sun.org.apache.regexp.internal.RE;
-
-import java.util.Scanner;
 
 public class cutRope67 {
     public static void main(String[] args) {
