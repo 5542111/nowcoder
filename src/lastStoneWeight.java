@@ -14,6 +14,7 @@ public class lastStoneWeight {
             list.add(stone);
         }
         while (list.size() > 1) {
+            Collections.sort(list);
             System.out.println(list);
             int x=list.remove(list.size()-2);
             int y=list.remove(list.size()-1);

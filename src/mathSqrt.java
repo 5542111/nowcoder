@@ -1,8 +1,8 @@
 public class mathSqrt {
     public static void main(String[] args) {
-        grandFather child1=new child();
-        child1.play();
+        System.out.println(sqrt(2.0));
     }
+
     public static double sqrt(int a) {
         double x1 = 1, x2;
         x2 = x1 / 2.0 + a / (2 * x1);//牛顿迭代公式
@@ -12,22 +12,30 @@ public class mathSqrt {
         }
         return x2;
     }
-}
-class grandFather{
-    public void play(){
-        System.out.println("grandFather.play()");
+
+    public static double sqrt(double n) {
+        if (n < 0) {
+            return -1;
+        } else if (n == 0 || n == 1) {
+            return n;
+        } else if (n > 0 && n < 1) {
+            return sqrtHelper(n,n,1);
+        }else {
+            return sqrtHelper(n,1,n);
+        }
     }
-}
-class father extends grandFather{
-    @Override
-    public void play(){
-        System.out.println("father.play()");
-    }
-}
-class child extends father{
-    @Override
-    public void play(){
-        System.out.println("child.play()");
+
+    public static double sqrtHelper(double n, double begin, double end) {
+        double mid = (begin + end) / 2;
+        while (end - begin > 0.0001) {
+            if (mid * mid > n) {
+                end = mid;
+            } else {
+                begin = mid;
+            }
+            mid = (begin + end) / 2;
+        }
+        return mid;
     }
 }
 

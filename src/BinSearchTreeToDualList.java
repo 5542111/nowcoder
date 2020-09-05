@@ -1,10 +1,5 @@
-import com.sun.org.apache.xpath.internal.objects.XObject;
-import javafx.geometry.Pos;
 import javafx.util.Pair;
-import sun.plugin2.ipc.windows.WindowsIPCFactory;
-import sun.reflect.generics.tree.Tree;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class BinSearchTreeToDualList {
