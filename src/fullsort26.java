@@ -3,7 +3,8 @@ import java.util.List;
 
 public class fullsort26 {
     public static void main(String[] args) {
-        dfs("abc".toCharArray(), new boolean[3], 0, new ArrayList<>());
+        dfs("abcd".toCharArray(), new boolean[4], 0, new ArrayList<>());
+        dfs("abc".toCharArray(), new ArrayList<>());
     }
 
     private final List<List<Integer>> list = new ArrayList<>();
@@ -61,4 +62,24 @@ public class fullsort26 {
         }
     }
 
+    public static void dfs(char[] chars, List<Character> list) {
+        //截止条件
+        if (list.size() == chars.length) {
+            System.out.println(list);
+            return;
+        }
+        //筛选节点
+        for (int i = 0; i < chars.length; i++) {
+            char temp = chars[i];
+            //筛选
+            if (temp != ' ') {
+                list.add(temp);
+                chars[i] = ' ';
+                dfs(chars, list);
+                chars[i] = temp;
+                list.remove(list.size() - 1);
+            }
+
+        }
+    }
 }
