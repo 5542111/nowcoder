@@ -12,4 +12,14 @@ public class nthUglyNumber264 {
         }
         return dp[n - 1];
     }
+    public boolean isUgly(int num) {
+        int[] nums={2,3,5};
+        for(int i:nums){
+            while(num>0&&num%i==0)
+            {
+                num/=i;
+            }
+        }
+        return num==1;
+    }
 }
