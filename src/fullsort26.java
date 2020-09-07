@@ -40,6 +40,36 @@ public class fullsort26 {
         nums[j] = temp;
     }
 
+    public List<List<Integer>> permute2(int[] nums) {
+        if (nums.length == 0) return new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(nums, new boolean[nums.length], 0, new ArrayList<>(), res);
+        return res;
+    }
+
+    public void dfs(int[] nums, boolean[] numsUsed, int level, List<Integer> list, List<List<Integer>> res) {
+        //截止条件
+        if (level == nums.length) {
+            list = new ArrayList<>(list);
+            res.add(list);
+            return;
+        }
+        //筛选节点
+        for (int i = 0; i < nums.length; i++) {
+            int temp = nums[i];
+            //筛选
+            if (!numsUsed[i]) {
+                list.add(temp);
+                numsUsed[i] = true;
+                dfs(nums, numsUsed, level + 1, list, res);
+                numsUsed[i] = false;
+                list.remove(list.size() - 1);
+                numsUsed[i] = false;
+            }
+
+        }
+    }
+
     public static void dfs(char[] chars, boolean[] charsUsed, int level, List<Character> list) {
         //截止条件
         if (level == chars.length) {
@@ -56,7 +86,6 @@ public class fullsort26 {
                 dfs(chars, charsUsed, level + 1, list);
                 charsUsed[i] = false;
                 list.remove(list.size() - 1);
-                charsUsed[i] = false;
             }
 
         }
