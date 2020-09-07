@@ -3,12 +3,12 @@ import java.util.List;
 
 public class illegalIpCount {
     public static void main(String[] args) {
-        dfs("19216801", 0, 0, new ArrayList<>());
+        dfs("192168011", -1, 0, new ArrayList<>());
     }
 
     public static void dfs(String str, int index, int level, List<String> list) {
-        if (level == 4 || index == str.length()) {
-            if (level == 4 && index == str.length()) {
+        if (level == 4 || index == str.length() - 1) {
+            if (level == 4 && index == str.length() - 1) {
 
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < list.size(); i++) {
@@ -24,8 +24,8 @@ public class illegalIpCount {
         }
         //候选子串
         for (int i = 1; i < 4; i++) {
-            int end = index + i > str.length() ? str.length() : index + i;
-            String temp = str.substring(index, end);
+            int end = index + i + 1 > str.length() ? str.length() : index + i + 1;
+            String temp = str.substring(index + 1, end);
             if (Integer.parseInt(temp) < 256 && (temp.equals("0") || !temp.startsWith("0"))) {
                 //System.out.println(index+","+end+","+temp);
                 list.add(temp);
