@@ -15,7 +15,6 @@ public class numIslands200 {
             for (int j = 0; j < grid[0].length; j++) {
                 if (!gridUsed[i][j] && grid[i][j] == '1') {
                     dfs(grid, gridUsed, i, j);
-
                     res++;
                 }
             }
