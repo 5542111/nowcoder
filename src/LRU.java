@@ -2,8 +2,18 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LRUCache extends LinkedHashMap<Integer, Integer> {
-    private  int cacheSize;
+public class LRU {
+    public static void main(String[] args) {
+        LRUCache1 lruCache1 = new LRUCache1(4);
+        lruCache1.put(1, 1);
+        lruCache1.put(4, 1);
+        lruCache1.put(1, 1);
+        System.out.println(lruCache1.toString());
+    }
+}
+
+class LRUCache extends LinkedHashMap<Integer, Integer> {
+    private int cacheSize;
 
     public LRUCache(int cacheSize) {
         super(cacheSize, 0.75F, true);
@@ -118,5 +128,3 @@ class LRUCache1<K, V> {
         public V value;
     }
 }
-
-
