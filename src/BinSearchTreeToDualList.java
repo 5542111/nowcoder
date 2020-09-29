@@ -69,7 +69,6 @@ public class BinSearchTreeToDualList {
         while (!stack.isEmpty()) {
             if (root != null) {
                 stack.push(root);
-                //System.out.println(root.val);
                 root = root.left;
             } else {
                 root = stack.pop();
