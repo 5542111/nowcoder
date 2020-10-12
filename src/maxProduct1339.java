@@ -6,20 +6,20 @@ public class maxProduct1339 {
 
     public int maxProduct(TreeNode root) {
         sum(root);
-        helper(root,total);
-        return (int)(max%1000000007L);
+        helper(root, total);
+        return (int) (max % 1000000007L);
     }
 
     public long helper(TreeNode root, long total) {
         if (root == null) {
-            return 0 ;
+            return 0;
         }
         long res = 0;
-        if (root.left == null && root.right ==  null) {
+        if (root.left == null && root.right == null) {
             res = root.val;
         } else if (root.left == null) {
             res = root.val + helper(root.right, total);
-        } else if (root.right ==  null) {
+        } else if (root.right == null) {
             res = root.val + helper(root.left, total);
         } else {
             res = root.val + helper(root.left, total) + helper(root.right, total);
