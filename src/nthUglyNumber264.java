@@ -22,4 +22,25 @@ public class nthUglyNumber264 {
         }
         return num == 1;
     }
+
+    public int nthSuperUglyNumber(int n, int[] primes) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        int[] primesUg = new int[primes.length];
+        for (int i = 1; i < n; i++) {
+
+            int min=Integer.MAX_VALUE;
+            for (int j = 0; j < primes.length ; j++) {
+                min=Math.min(min,dp[primesUg[j]]*primes[j]);
+            }
+            dp[i]=min;
+            for (int j = 0; j <primes.length ; j++) {
+                if (dp[i]==dp[primesUg[j]]*primes[j])
+                {
+                    primesUg[j]++;
+                }
+            }
+        }
+        return dp[n-1];
+    }
 }
