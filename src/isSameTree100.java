@@ -7,7 +7,7 @@ public class isSameTree100 {
         } else if (p.val != q.val) {
             return false;
         } else {
-            return isSameTree(p.left, q.left) && isSameTree(p.right, p.right);
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
         }
     }
 }
