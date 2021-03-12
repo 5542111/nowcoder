@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class lengthOfLIS300 {
     public static void main(String[] args) {
         System.out.println(new lengthOfLIS300().lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
@@ -21,6 +23,31 @@ public class lengthOfLIS300 {
         }
 
         return max;
+    }
+
+    public int[] LIS (int[] arr) {
+        // write code here
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        int[] maxLen = new int[arr.length];
+        for(int i = 0; i < arr.length; i ++){
+            if(list.isEmpty() || list.get(list.size()-1) <= arr[i]){
+                list.add(arr[i]);
+                maxLen[i] = list.size();
+            }else{
+                int tmp = Collections.binarySearch(list,arr[i]);
+                if(tmp < 0) tmp = -tmp-1;
+                list.set(tmp, arr[i]);
+                maxLen[i] = tmp+1;
+            }
+        }
+        int[] lis = new int[list.size()];
+        for(int i = lis.length-1, k = maxLen.length-1; i >= 0; k --){
+            if(maxLen[k]==i+1){
+                lis[i] = arr[k];
+                i --;
+            }
+        }
+        return lis;
     }
 
 }
