@@ -1,5 +1,9 @@
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class numIslands200 {
     public int numIslands(char[][] grid) {
@@ -40,4 +44,68 @@ public class numIslands200 {
         if (j + 1 < yLength) list.add(new int[]{i, j + 1});
         return list;
     }
+}
+
+class numsOfIsland{
+    public int numIslands(char[][] grid) {
+        if (grid.length == 0) {
+            return 0;
+        }
+        if (grid[0].length == 0) {
+            return 0;
+        }
+        int res = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if(grid[i][j]=='1'){
+
+                    /**
+                     * 走过的位置改为0 开辟boolean Used空间
+                     */
+                    grid[i][j]='0';
+
+                    Queue<Pair<Integer,Integer>> queue=new LinkedList<>();
+                    queue.add(new Pair<>(i,j));
+                    while(!queue.isEmpty()){
+                        Pair<Integer,Integer> pos=queue.poll();
+                        int row=pos.getKey();
+                        int col=pos.getValue();
+                        /**
+                         * 解决row col 四方的统计
+                         */
+                        if (row-1>=0 && grid[row-1][col]=='1'){
+                            queue.add(new Pair<>(row-1,col));
+                            grid[row-1][col]='0';
+                        }
+
+                        if (row+1< grid.length && grid[row+1][col]=='1'){
+                            queue.add(new Pair<>(row+1,col));
+                            grid[row+1][col]='0';
+                        }
+
+                        if (col-1>=0 && grid[row][col-1]=='1'){
+                            queue.add(new Pair<>(row,col-1));
+                            grid[row][col-1]='0';
+                        }
+                        if (col+1<grid[0].length && grid[row][col+1]=='1'){
+                            queue.add(new Pair<>(row,col+1));
+                            grid[row][col+1]='0';
+                        }
+
+
+                    }
+                    /**
+                     * 岛数量+1
+                     */
+                    res++;
+                }
+
+            }
+        }
+
+
+        return res;
+    }
+
 }
