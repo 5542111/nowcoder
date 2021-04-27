@@ -71,4 +71,28 @@ public class sort {
 
         return left;
     }
+
+    private int findKByQuickSort(int[] arr, int L, int R, int k) {
+        if (L == R)
+            return arr[L];
+
+        int left = partitionSort(arr, L, R);
+        if (k <= left - L) return findKByQuickSort(arr, L, left - 1, k);
+        else if (k == left - L + 1) return findKByQuickSort(arr, left, left, k);
+        else return findKByQuickSort(arr, left + 1, R, k - (left - L + 1));
+
+
+    }
+
+    private int findKBigByQuickSort(int[] arr, int L, int R, int k) {
+        if (L == R)
+            return arr[L];
+
+        int left = partitionSort(arr, L, R);
+        if (k <= R - left) return findKBigByQuickSort(arr, left + 1, R, k);
+        else if (k == R - left + 1) return arr[left];
+        else return findKBigByQuickSort(arr, L, left - 1, k - (R - left + 1));
+
+
+    }
 }
