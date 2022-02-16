@@ -41,11 +41,25 @@ public class a0039combinationSum {
             res.add(new ArrayList<>(path));
             return;
         }
+        //不取重复数据
         combinationSumHelper2(candidates, target, res, path, index + 1);
         if (target < candidates[index]) return;
+        //取重复数据
         path.add(candidates[index]);
         combinationSumHelper2(candidates, target - candidates[index], res, path, index);
         path.remove(path.size() - 1);
 
+    }
+
+    private void dfs(int[] candidates, int target, List<List<Integer>> res, List<Integer> path, int index) {
+        if (target < 0) return;
+        else if (target == 0) {
+            res.add(new ArrayList<>(path));
+        }
+        for (int i = index; i < candidates.length; i++) {
+            path.add(candidates[i]);
+            dfs(candidates, target - candidates[i], res, path, i);
+            path.remove(path.size() - 1);
+        }
     }
 }
