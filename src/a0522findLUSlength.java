@@ -9,7 +9,7 @@ public class a0522findLUSlength {
             boolean flag = false;
             for (int j = 0; j < n; j++) {
                 if (i == j) continue;
-                if (check(strs[i], strs[j])) {
+                if (check2(strs[i], strs[j])) {
                     flag = true;
                     break;
                 }
@@ -40,5 +40,16 @@ public class a0522findLUSlength {
         }
 
         return false;
+    }
+
+    private boolean check2(String str1, String str2) {
+        int count1 = 0, count2 = 0;
+        while (count1 < str1.length() && count2 < str2.length()) {
+            if (str1.charAt(count1) == str2.charAt(count2)) {
+                count1++;
+            }
+            count2++;
+        }
+        return count1 == str1.length();
     }
 }
