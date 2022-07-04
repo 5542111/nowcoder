@@ -8,10 +8,15 @@ import java.util.List;
 
 public class sortAlgorithm {
     public static void main(String[] args) {
-        Integer[] arr = new Integer[]{2, 1, 3, 5, 4};
-        List<Integer> integers = Arrays.asList(arr);
-        System.out.println(new sortAlgorithm().sort(integers));
+//        Integer[] arr = new Integer[]{2, 1, 3, 5, 4};
+//        List<Integer> integers = Arrays.asList(arr);
+//        System.out.println(new sortAlgorithm().sort(integers));
 
+        int[] arr2 = new int[]{2, 1, 3, 5, 4};
+        new sortAlgorithm().merge2(arr2, 0, arr2.length - 1);
+        for (int i : arr2) {
+            System.out.println(i);
+        }
     }
 
 
@@ -175,6 +180,33 @@ public class sortAlgorithm {
             for (int i = start; i <= end; i++) {
                 arr[i] = result[i - start];
             }
+        }
+    }
+
+    public void merge2(int[] arr, int start, int end) {
+        if (start >= end) return;
+        int left = start;
+        int leftEnd = (start + end) / 2;
+        int right = (start + end) / 2 + 1;
+        merge2(arr, start, leftEnd);
+        merge2(arr, right, end);
+        int index = 0;
+        int[] result = new int[end - start + 1];
+
+        while (left <= (start + end) / 2 || right <= end) {
+            if (left > (start + end) / 2) {
+                result[index++] = arr[right++];
+            } else if (right > end) {
+                result[index++] = arr[left++];
+            } else if (arr[left] < arr[right]) {
+                result[index++] = arr[left++];
+            } else {
+                result[index++] = arr[right++];
+            }
+        }
+
+        for (int i = start; i <= end; i++) {
+            arr[i] = result[i - start];
         }
     }
 
