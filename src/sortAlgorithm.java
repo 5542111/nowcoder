@@ -1,17 +1,17 @@
 import com.sun.crypto.provider.PBEWithMD5AndDESCipher;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class sortAlgorithm {
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 1, 3, 5, 4};
-        new sortAlgorithm().fastSort(arr,0,arr.length-1);
-        //new sortAlgorithm().fastSort(arr,0,arr.length-1);
-        //  new sortAlgorithm().quickSort(arr,0,arr.length-1);
-        for (int i : arr) {
-            System.out.print(i + " ");
-        }
+        Integer[] arr = new Integer[]{2, 1, 3, 5, 4};
+        List<Integer> integers = Arrays.asList(arr);
+        System.out.println(new sortAlgorithm().sort(integers));
+
     }
 
 
@@ -176,6 +176,40 @@ public class sortAlgorithm {
                 arr[i] = result[i - start];
             }
         }
+    }
+
+
+    public List<Integer> sort(List<Integer> nums) {
+        if (nums == null || nums.size() <= 1) {
+            return nums;
+        }
+        List<Integer> left = sort(nums.subList(0, nums.size() / 2));
+        List<Integer> right = sort(nums.subList(nums.size() / 2, nums.size()));
+        return mergeSort(left, right);
+    }
+
+    public List<Integer> mergeSort(List<Integer> left, List<Integer> right) {
+        List<Integer> res = new ArrayList<>();
+        int leftStart = 0;
+        int rightStart = 0;
+        int leftEnd = left.size();
+        int rightEnd = right.size();
+        while (leftStart < leftEnd || rightStart < rightEnd) {
+            if (leftStart == leftEnd) {
+                res.add(right.get(rightStart));
+                rightStart++;
+            } else if (rightStart == rightEnd) {
+                res.add(left.get(leftStart));
+                leftStart++;
+            } else if (left.get(leftStart) < right.get(rightStart)) {
+                res.add(left.get(leftStart));
+                leftStart++;
+            } else {
+                res.add(right.get(rightStart));
+                rightStart++;
+            }
+        }
+        return res;
     }
 
     public void fastSort(int[] arr, int L, int R) {
