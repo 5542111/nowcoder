@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class sortAlgorithm {
     public static void main(String[] args) {
         int[] arr = new int[]{2, 1, 3, 5, 4};
-        new sortAlgorithm().bubbleSort(arr);
+        new sortAlgorithm().fastSort(arr,0,arr.length-1);
         //new sortAlgorithm().fastSort(arr,0,arr.length-1);
         //  new sortAlgorithm().quickSort(arr,0,arr.length-1);
         for (int i : arr) {
@@ -258,20 +258,14 @@ public class sortAlgorithm {
             while (start < end && arr[low] >= temp) {
                 start++;
             }
-            if (start < end) {
-                arr[start] = arr[end];
-            }
+            arr[start] = arr[end];
+
             while (start < end && arr[end] <= temp) {
                 end--;
             }
-            if (start < end) {
-                arr[end] = arr[low];
-            }
-            if (start == end) {
-                arr[start] = temp;
-            }
-
+            arr[end] = arr[low];
         }
+        arr[start] = temp;
         fastsort(arr, low, start - 1);
         fastsort(arr, start + 1, end);
     }
