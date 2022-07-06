@@ -1,23 +1,21 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class a0253meetingRooms {
     public static void main(String[] args) {
-        int[][] arr =new int[][]{
-                {0,30},{15,10},{6,20}
+        int[][] arr = new int[][]{
+                {0, 30}, {15, 17}, {6, 20}
         };
         new a0253meetingRooms().meetingRooms(arr);
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i][0]+" "+arr[i][1]);
+            System.out.println(arr[i][0] + " " + arr[i][1]);
         }
     }
+
     public int meetingRooms(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
         }
-        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[1]));
 
         List<Integer> list = new ArrayList<>();
         list.add(intervals[0][1]);
@@ -38,5 +36,22 @@ public class a0253meetingRooms {
 
         }
         return res;
+    }
+
+    public int meetingRooms2(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[1]));
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[0]));
+
+        for (int[] interval : intervals) {
+            if (!pq.isEmpty() && pq.peek()[1] <= interval[0]) {
+                pq.poll();
+            }
+            pq.offer(interval);
+        }
+        return pq.size();
+
     }
 }
