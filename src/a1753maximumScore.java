@@ -1,0 +1,8 @@
+public class a1753maximumScore {
+
+    public int maximumScore(int a, int b, int c) {
+        int sum = a + b + c;
+        int max = Math.max(a, Math.max(b, c));
+        return Math.min(sum - max, sum / 2);
+    }
+}
