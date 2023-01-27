@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.sun.tools.doclint.Entity.sum;
 
 public class a0930numSubarraysWithSum {
     public static void main(String[] args) {
