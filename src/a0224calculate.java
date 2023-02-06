@@ -1,12 +1,14 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Queue;
 import java.util.Stack;
 
 public class a0224calculate {
     public static void main(String[] args) {
-        System.out.println(new a0224calculate().calculate("1-(-2)"));
+        System.out.println(new a0224calculate().calculate2(" 3    /2 "));
     }
 
+    //s 由数字、'+'、'-'、'('、')'、和 ' ' 组成
     public int calculate(String s) {
 
         Stack<String> stack = new Stack<>();
@@ -56,5 +58,47 @@ public class a0224calculate {
         if (res < Integer.MIN_VALUE) return Integer.MIN_VALUE;
 
         return (int) res;
+    }
+    //s 由整数和算符 ('+', '-', '*', '/') 组成，中间由一些空格隔开
+
+    public int calculate2(String s) {
+        s = s.replaceAll(" ", "");
+        Deque<Integer> queue = new ArrayDeque<>();
+        char op = '+';
+        int num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                num = num * 10 + s.charAt(i) - '0';
+            }
+            if (!Character.isDigit(s.charAt(i)) || i == s.length() - 1) {
+                switch (op) {
+                    case '+': {
+                        queue.add(num);
+                        break;
+                    }
+                    case '-': {
+                        queue.add(-num);
+                        break;
+                    }
+                    case '*': {
+                        queue.add(queue.pollLast() * num);
+                        break;
+                    }
+                    default: {
+                        queue.add(queue.pollLast() / num);
+                        break;
+                    }
+                }
+                op = s.charAt(i);
+                num = 0;
+            }
+        }
+        System.out.println(queue);
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            ans += queue.pop();
+        }
+        return ans;
+
     }
 }
