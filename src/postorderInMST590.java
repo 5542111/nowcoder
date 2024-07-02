@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Stack;
 
 public class postorderInMST590 {
-    public List<Integer> postorder(FreqNode root) {
+    public List<Integer> postorder(Node root) {
         List<Integer> list = new ArrayList<>();
         if (root == null) return list;
 
-        Stack<FreqNode> stack1 = new Stack<>();
-        Stack<FreqNode> stack2 = new Stack<>();
+        Stack<Node> stack1 = new Stack<>();
+        Stack<Node> stack2 = new Stack<>();
         stack1.push(root);
         while (!stack1.isEmpty()) {
-            FreqNode temp = stack1.pop();
+            Node temp = stack1.pop();
             stack2.push(temp);
             while (!temp.children.isEmpty()) {
                 stack1.push(temp.children.get(0));
@@ -32,7 +32,7 @@ public class postorderInMST590 {
 
 class Node {
     public int val;
-    public List<FreqNode> children;
+    public List<Node> children;
 
     public Node() {
     }
@@ -41,7 +41,7 @@ class Node {
         val = _val;
     }
 
-    public Node(int _val, List<FreqNode> _children) {
+    public Node(int _val, List<Node> _children) {
         val = _val;
         children = _children;
     }
